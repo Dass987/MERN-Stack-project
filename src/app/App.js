@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import NavBar from './NavBar';
+import TaskForm from './TaskForm';
 
 class App extends Component {
 
@@ -64,33 +66,15 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				{ /** NAVIGATION */}
-				<nav className="light-blue darken-4">
-					<div className="container">
-						<a href="/" className="brand-logo">MERN Stack</a>
-					</div>
-				</nav>
+				<NavBar/>
+				<div className="container">
+					<TaskForm addTask={this.addTask} handleChange={this.handleChange} state={this.state} />
+				</div>
 				<br/>
 				<div className="container">
 					<div className="row">
 						<div className="col s12">
-							<div className="card">
-								<div className="card-content">
-									<form onSubmit={this.addTask}>
-										<div className="row">
-											<div className="col s12 input-field">
-												<input type="text" name="title" onChange={this.handleChange} placeholder="Task title..." value={this.state.title} />
-											</div>
-										</div>
-										<div className="row">
-											<div className="col s12 input-field">
-												<textarea name="description" onChange={this.handleChange} className="materialize-textarea" placeholder="Task description..." value={this.state.description} ></textarea>
-											</div>
-										</div>
-										<button type="submit" className="btn light-blue darken-4">Send</button>
-									</form>
-								</div>
-							</div>
+							
 						</div>
 						<div className="col s12">
 							<table className="centered">
