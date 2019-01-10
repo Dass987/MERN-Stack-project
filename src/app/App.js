@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar';
 import TaskForm from './TaskForm';
+import TableTasks from './TableTasks';
 
 class App extends Component {
 
@@ -43,7 +44,7 @@ class App extends Component {
 						_id: ''
 					});
 					this.fetchTasks();
-					M.toast({html: 'Task Updated');
+					M.toast({html: 'Task Updated'});
 					M.updateTextFields();
 				})
 				.catch(err => console.log(err));
@@ -95,6 +96,7 @@ class App extends Component {
 	}
 	
 	editTask(id) {
+
 		fetch('/api/tasks/' + id)
 			.then(res => res.json())
 			.then(data => {
@@ -105,6 +107,7 @@ class App extends Component {
 				});
 				M.updateTextFields();
 			});
+			
 	}
 
 	deleteTask(id) {
@@ -134,50 +137,7 @@ class App extends Component {
 				<div className="container">
 					<TaskForm addTask={this.addTask} handleChange={this.handleChange} state={this.state} />
 				</div>
-				<br/>
-				<div className="container">
-					<div className="row">
-						<div className="col s12">
-							
-						</div>
-						<div className="col s12">
-							<table className="centered">
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>Title</th>
-										<th>Description</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									{this.state.tasks.map(task => {
-										return (<tr key={task._id}>
-														<td>
-															{task._id}
-														</td>
-														<td>
-															{task.title}
-														</td>
-														<td>
-															{task.description}
-														</td>
-														<td>
-															<button className="btn waves-effect waves-light light-blue darken-4 hoverable" onClick={() => {
-																this.editTask(task._id);
-															}}><i className="material-icons">edit</i></button>&nbsp;
-															<button className="btn waves-effect waves-light light-blue darken-4 hoverable" onClick={() => {
-																this.deleteTask(task._id);
-															}}><i className="material-icons">delete</i></button>
-														</td>
-													</tr>);
-									})}
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-
+				<TableTasks tasks={this.state.tasks} editTask={this.editTask.bind(this)} deleteTask={this.deleteTask} />
 			</div>
 		);
 	}
